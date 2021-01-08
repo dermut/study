@@ -13,6 +13,60 @@
 
     }
     var user = new User();
+
+    // new를 활용한 Object 생성자 호출
+    var user = new Object();
+    user.name = 'Sunny';
+    user.interests = ['Traveling', 'Swimming'];
+    user.greeting = function () {
+        console.log('Hi, I\'m ' + this.name + '.');
+    };
+    user.greeting();
+
+    // 객체 리터럴을 활용한 user 생성
+    var user = {
+        name : 'Sunny',
+        interests: ['Traveling', 'Swimming'],
+        greeting: function () {
+            console.log('Hi, I\'m ' + this.name + '.');
+        }
+    }
+    user.greeting();
+
+    var user = {
+        get role() {
+            return 'Engineer';
+        }
+    }
+    console.log(user.role); // Engineer
+
+    // 생성자 함수 생성
+    function User(name, interests) {
+        this.name = name;
+        this.interests = interests;
+        this.greeting = function() {
+            console.log('Hi, I\'m ' + this.name + '.');
+        }
+    }
+    // user 객체를 생성하는 데 new를 활용해 생성자 함수 호출
+    var user = new User('Sunny', ['Traveling', 'Swimming']);
+    user.greeting(); // Hi, I'm Sunny. 출력
+
+    var user = new User;
+    console.log(user.name); // undefined 출력
+
+    // 위에서 생성한 User 생성자 함수의 프로토타입과 Object.create() 메소드 활용
+    var user = Object.create(User.prototype, {
+        name: { value: 'Sunny' },
+        interests: { value: ['Traveling', 'Swimming'] }
+    });
+    //user.greeting(); // Uncaught TypeError: user.greeting() is not a function 출력
+
+    // 프로토타입 객체에 greeting 함수 추가
+    User.prototype.greeting = function () {
+        console.log('Hi I\'m ' + this.name +'.');
+    }
+    user.greeting(); // Hi, I'm Sunny. 출력
 </script>
 <body>
     
