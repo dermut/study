@@ -567,3 +567,196 @@ const WorkoutPlan = () => {};
 let workoutPlan = new WorkoutPlan();
 console.log(Workout.prototype); // undefined 출력
 
+
+// 매개변수 기본값
+// ES6에서는 함수 매개변수의 기본값을 정의할 수 있다.
+const shoppingCart = [];
+function addToCart(item, size = 1) {
+    shoppingCart.push({ item: item, count: size });
+}
+addToCart('Apple'); // size는 1
+addToCart('Orange', 2); // size는 2
+
+// ES5 addToCart 함수
+function addToCart(item, size) {
+    size = (typeof size !== 'undefined') ? size : 1;
+    shoppingCart.push({ item: item, count: size });
+}
+
+
+// 나머지 매개변수
+// ES5에서 arguments 활용
+function workout(exercies1) {
+    var todos = Array.prototype.slice.call(arguments, workout.length);
+    console.log('Start from ' + exercies1);
+    console.log(todos.length + ' more to do');
+}
+// ES6에서 나머지 매개변수 활용
+function workout(exercies1, ...todos) {
+    console.log('Start from ' + exercies1); // Start from Treadmill 출력
+    console.log(todos.length + ' more to do'); // 2 more to do 출력
+    console.log('Args length: ' + workout.length); // Args length: 1 출력
+}
+workout('Treadmill', 'Pushup', 'Spinning');
+
+
+// 전개 구문
+// ES6에서 3점 표기법(...)을 함수 선언 내에 사용하면 그것이 나머지 매개변수를 정의한다.
+// 이 표기법을 배열에서 사용하면 배열의 요소들을 전개시킨다.
+let urgentTasks = ['Buy three tickets'];
+let normalTasks = ['Book a hotel', 'Rent a car'];
+let allTasks = [...urgentTasks, ... normalTasks];
+
+((first, second) => {
+    console.log('Working on ' + first + ' and ' + second)
+})(...allTasks);
+
+// 비구조화 할당
+// 객체 비구조화 예제
+let user = {name: 'Sunny', interests: ['Traveling', 'Swimming']};
+let {name, interests, tasks} = user;
+console.log(name); // Sunny 출력
+console.log(interests) // ['Traveling', 'Swimming'] 출력
+console.log(tasks); // undefined 출력
+
+// name과 interests가 프로퍼티로 할당된다.
+// tasks는 객체에 일치하는 프로퍼티가 없어서 undefined로 정의된다.
+let {name, interests, tasks=[]} = user;
+console.log(tasks);
+
+// 다른 변수명에 할당 가능 name -> firstName
+let {name: firstName} = user;
+console.log(firstName); // Sunny 출력
+
+
+// 배열 비구조화
+let [first, second] = ['Traveling', 'Swimming', 'Shopping'];
+console.log(first); // Traveling 출력
+console.log(second); // Swimming 출력
+
+let [,,third, fourth] = ['Traveling', 'Swimming', 'Shopping'];
+console.log(third); // Shopping 출력
+console.log(fourth); // undefined 출력
+
+let [,,third, fourth=''] = ['Traveling', 'Swimming', 'Shopping'];
+console.log(fourth); // '' 출력
+
+
+// 중첩 비구조화
+let user = {name: 'Sunny', interests:['Traveling', 'Swimming']};
+let {interests:[,second]} = user;
+console.log(second); // Swimming 출력
+console.log(interests); // ReferenceError 출력
+
+const fruits = [{name:'Apple', price:100}, {name:'Orange', price: 80}];
+let [,{name:secondFruitName}] = fruits;
+console.log(secondFruitName);
+
+
+// 나머지 요소
+let [first, ...others] = ['Traveling', 'Swimming', 'Shopping'];
+console.log(others); // ["Swimming", "Shopping"] 출력
+
+const fruits = [{name:'Apple', price:100}, {name:'Orange', price:80}];
+let [...myFruits] = fruits;
+console.log(myFruits[0].name); // Apple 출력
+myFruits.push({name:'Banana', price: 90});
+console.log(myFruits.length); // 3 출력
+console.log(fruits.length); // 2 출력
+myFruits[0].price = 110;
+console.log(fruits[0].price); // 110 출력
+
+// 함수 매개변수 비구조화
+function workout({gym}, times) {
+    console.log('Workout in ' + gym + ' for ' + times + ' times');
+}
+let thisWeek = {gym: 'Gym A'};
+workout(thisWeek, 2); // Workout in Gym A for 2 times 출력
+
+function workout({gym, todos}) {
+    let[first] = todos;
+    console.log('Start ' + first + ' in ' + gym);
+}
+let today = {gym: 'Gym A', todos: ['Treadmill']};
+workout(today);
+workout({gym: 'Gym B'});
+
+function workout({gym, todos=['Treadmill']}) {
+    let[first] = todos;
+    console.log('Start ' + first + ' in ' + gym);
+}
+workout({gym: 'Gym A'}); // Start Treadmill in Gym A 출력
+workout(); // throw TypeError 출력
+
+function workout({gym='', todos=['Treadmill']} = {}) {
+    // ...
+}
+
+
+// 템플릿 리터럴
+let user = {
+    name: 'Ted',
+    greeting() {
+        console.log(`Hello, I'm ${this.name}`);
+    }
+};
+user.greeting(); // Hello, I'm Ted. 출력
+
+let greeting = `Hello, I'm ${user.name}.
+Welcome to the team!`;
+console.log(greeting); // Hello, I'm Ted.
+                       // Welcome to the team! 출력
+
+// 역 따옴표 문자 내부에 있는 모든 공백도 출력된다.
+let greeting = `Hello, I'm ${user.name}.
+                Welcome to the team`;
+console.log(greeting); // Hello. I'm Ted.
+                       //                 Welcome to the team! 출력
+
+
+// 모듈
+function getProject(callback) {
+    // 서버 API를 호출하는 데 setTimeout을 활용
+    setTimeout(() => {
+        callback([{ id: 1, name: 'Project A' }, { id: 2, name: 'Project B' }]);
+    }, 100);
+}
+function getTasks(projects, callback) {
+    // 서버 API를 호출하는 데 setTimeout을 활용
+    setTimeout(() => {
+        // 구체적인 프로젝트의 작업 반환
+        callback([{ id: 1, projectId: 1, title: 'Task A'}, { id: 2, projectId: 2, title: 'Task B' }]);
+    }, 100);
+}
+function render({ projects, tasks }) {
+    console.log(`Render ${projects.length} projects and ${tasks.length} tasks`);
+}
+getProject((projects) => {
+    getTasks(projects, (tasks) => {
+        render({ projects, tasks });
+    });
+});
+
+function getProjects() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve([{ id: 1, name: 'Project A' }, { id: 2, name: 'Project B' }]);
+        }, 100);
+    });
+}
+function getTasks(projects) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve({ projects, tasks: ['Buy three tickets', 'Book a hotel']});
+        }, 100);
+    });
+}
+function render({ projects, tasks }) {
+    console.log(`Render ${projects.length} projects and ${tasks.length} tasks`);
+}
+getProject()
+    .then(getTasks)
+    .then(render)
+    .catch((error) => {
+        console.log('Handling error', error);
+    });
