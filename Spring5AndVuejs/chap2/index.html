@@ -11,6 +11,7 @@
 </head>
 <body>
     <div id="app" v-cloak>
+        <message-list :items="messages" @delete="deleteMessage"></message-list>
         <ul>
             <li v-for="message in messages">
                 {{ message.text }} - {{ message.createdAt }}
@@ -23,7 +24,8 @@
         </form>
     </div>
     <script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
-    <script>
+    <script type="module">
+    import MessageList from './components/MessageList.js'
     let vm = new Vue({
         el: '#app',
         data: {
