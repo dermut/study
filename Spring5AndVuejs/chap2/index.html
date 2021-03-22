@@ -19,15 +19,23 @@
             </li>
         </ul>
         <form v-on:submit.prevent="addMessage">
-            <textarea v-model="newMessage" placeholder="Leave a message"></textarea>
+            <textarea v-focus v-model="newMessage" placeholder="Leave a message"></textarea>
             <div><button :disabled="addDisabled" type="submit">Add</button></div>
         </form>
     </div>
     <script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
     <script type="module">
-    import MessageList from './components/MessageList.js'
+    import MessageList from './components/MessageList.js';
+    import './directives/focus.directive.js';
+    import './filters/datetime.filter.js';
+    import lifecycleLogger from './mixins/lifecycle-logger.mixin.js';
+    import LifecycleLogger from './plugins/lifecycle-logger.plugin.js';
+
+    Vue.use(LifecycleLogger, {beforeMount: false});
     let vm = new Vue({
         el: '#app',
+        name: 'MessagesApp',
+        mixins: [lifecycleLogger],
         data: {
             messages: [],
             newMessage: ''
@@ -35,8 +43,9 @@
         methods: {
             addMessage (event) {
                 if (!this.newMessage) {return;}
-                    this.messages.push({
-                        text: this.newMessage, createdAt: new Date()
+                let now = new Date();
+                this.messages.push({
+                        id: now.getTime(), text: this.newMessage, createdAt: now
                     });
                     this.newMessage = '';
             },

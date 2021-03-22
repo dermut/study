@@ -1,14 +1,18 @@
+import MessageListItem from './MessageListItem.js';
+import lifecycleLogger from '../mixins/lifecycle-logger.mixin.js'
 export default {
     name: 'MessageList',
-    template: `<ul
-    <li v-for="item in items" :item="item">
-    {{ item.text }} - {{ item.createdAt }}
-    <button @click="deleteMessage(item)">X</button></li></ul>`,
+    mixins: [lifecycleLogger],
+    template: `<ul><message-list-item v-for="item in items" :item="item" :key="item.id"
+    @delete="deleteMessage(item)"></messsage-list-item></ul>`,
     props: {
-        items: {
-            type: Array,
+        item: {
+            type: Object,
             required: true
         }
+    },
+    components: {
+        MessageListItem
     },
     methods: {
         deleteMessage(message) {
