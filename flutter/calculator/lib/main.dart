@@ -16,21 +16,21 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const Calculator(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class Calculator extends StatefulWidget {
+  const Calculator({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Calculator> createState() => _CalculatorState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _CalculatorState extends State<Calculator> {
   int _counter = 0;
 
   void _incrementCounter() {
