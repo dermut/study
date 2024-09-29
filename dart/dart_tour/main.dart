@@ -1,48 +1,42 @@
-abstract class Human {
-  void walk();
-}
+mixin Strong {
+  final double strengthLevel = 1500.99;
+} // mixin
 
-class Coach extends Human {
-  void walk() {
-    print('The coach is walking');
+mixin QuickRunner {
+  void runQuick() {
+    print('ruuuuuuun!');
   }
 }
 
-enum Team { red, blue }
+mixin Tall {
+  final double height = 1.99;
+}
 
-enum XPLevel { beginner, medium, pro }
+class Horse with Strong, QuickRunner {}
 
-class Player extends Human {
-  String name;
-  XPLevel xp;
-  Team team;
+enum Team { blue, red }
 
-  Player({
-    required String name,
-    required XPLevel xp,
-    required Team team,
-  })  : this.name = name,
-        this.xp = xp,
-        this.team = team;
-
-  void walk() {
-    print('I\'m walking');
-  }
-
+class Human {
+  final String name;
+  Human(this.name);
   void sayHello() {
-    // Dart에서는 this를 사용하지 않는 것을 권장함.
-    // 만약 sayHello에 겹치는 이름이 있으면 this를 사용할 필요는 있음.
-    // this.name;
     print("Hi my name is $name");
   }
 }
 
+class Player extends Human with Strong, QuickRunner, Tall {
+  final Team team;
+
+  Player({required this.team, required String name}) : super(name);
+
+  @override
+  void sayHello() {
+    super.sayHello();
+    print(' and I play for ${team}');
+  }
+}
+
 void main() {
-  var player = Player(name: 'jimin', xp: XPLevel.medium, team: Team.blue)
-    ..sayHello();
-  var potato = player
-    ..name = 'lalala'
-    ..xp = XPLevel.pro
-    ..team = Team.red
-    ..sayHello();
+  var player = Player(team: Team.red, name: 'jimin');
+  player.sayHello();
 }
