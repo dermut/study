@@ -1,15 +1,33 @@
-class Player {
+abstract class Human {
+  void walk();
+}
+
+class Coach extends Human {
+  void walk() {
+    print('The coach is walking');
+  }
+}
+
+enum Team { red, blue }
+
+enum XPLevel { beginner, medium, pro }
+
+class Player extends Human {
   String name;
-  int xp;
-  String team;
+  XPLevel xp;
+  Team team;
 
   Player({
     required String name,
-    required int xp,
-    required String team,
+    required XPLevel xp,
+    required Team team,
   })  : this.name = name,
         this.xp = xp,
         this.team = team;
+
+  void walk() {
+    print('I\'m walking');
+  }
 
   void sayHello() {
     // Dart에서는 this를 사용하지 않는 것을 권장함.
@@ -20,10 +38,11 @@ class Player {
 }
 
 void main() {
-  var player = Player(name: 'jimin', xp: 1500, team: 'blue')..sayHello();
+  var player = Player(name: 'jimin', xp: XPLevel.medium, team: Team.blue)
+    ..sayHello();
   var potato = player
     ..name = 'lalala'
-    ..xp = 120000
-    ..team = 'blue'
+    ..xp = XPLevel.pro
+    ..team = Team.red
     ..sayHello();
 }
