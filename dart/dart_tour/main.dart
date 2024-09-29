@@ -1,8 +1,18 @@
-// Optional Positional Parameter
-String sayHello(String name, int age, [String? country = 'cuba']) =>
-    'Hello $name, you are $age years old from $country';
+// 이 방법으로도 Nullable 처리가 가능하다
+// String capitalizeName(String? name) {
+//   if (name != null) {
+//     return name.toUpperCase();
+//   }
+//   return 'ANON';
+// }
+
+String capitalizeName(String? name) => name?.toUpperCase() ?? 'ANON';
 
 void main() {
-  var results = sayHello('jimin', 2);
-  print(results);
+  capitalizeName('jimin');
+  capitalizeName(null);
+
+  String? name;
+  name ??= 'jimin';
+  print(name);
 }
