@@ -1,18 +1,28 @@
-void main() {
-  var name = 'jimin';
-  var age = 30;
-  var greeting =
-      "Hello everyone, my name is $name and I'm ${age + 2}, nice to meet you!";
-  print(greeting);
+// String sayHello(String name) => "Hello $name nice to meet you!";
+String sayHello(String name) {
+  // call api
+  // perform calc
+  return "Hello $name nice to meet you!";
+}
 
-  var oldFriends = [
-    'jimin',
-    'seyoung',
-  ];
-  var newFriends = [
-    'simba',
-    'haku',
-    for (var friend in oldFriends) "💘 $friend"
-  ];
-  print(newFriends);
+// NamedParameter를 사용하기 위해 Default Value를 지정한 방법
+// String sayHelloNamed({
+//   String name = 'anon',
+//   int age = 99,
+//   String country = 'wakanda',
+// }) {
+//   return "Hello $name, you are $age, and you come from $country";
+// }
+
+// NamedParameter를 사용하기 위해 required로 지정한 방법
+String sayHelloNamed({
+  required String name,
+  required age,
+  required String country,
+}) {
+  return "Hello $name, you are $age, and you come from $country";
+}
+
+void main() {
+  print(sayHelloNamed(age: 12, country: 'cuba', name: 'jimin'));
 }
