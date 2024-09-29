@@ -1,12 +1,15 @@
 class Player {
-  final String name;
+  String name;
   int xp;
   String team;
 
-  Player.fromJson(Map<String, dynamic> playerJson)
-      : name = playerJson['name'],
-        xp = playerJson['xp'],
-        team = playerJson['team'];
+  Player({
+    required String name,
+    required int xp,
+    required String team,
+  })  : this.name = name,
+        this.xp = xp,
+        this.team = team;
 
   void sayHello() {
     // Dart에서는 this를 사용하지 않는 것을 권장함.
@@ -17,30 +20,10 @@ class Player {
 }
 
 void main() {
-  var apiData = [
-    {
-      "name": "jimin",
-      "team": "red",
-      "xp": 0,
-    },
-    {
-      "name": "seyoung",
-      "team": "red",
-      "xp": 0,
-    },
-    {
-      "name": "simba",
-      "team": "red",
-      "xp": 0,
-    },
-    {
-      "name": "haku",
-      "team": "red",
-      "xp": 0,
-    },
-  ];
-  apiData.forEach((playerJson) {
-    var player = Player.fromJson(playerJson);
-    player.sayHello();
-  });
+  var player = Player(name: 'jimin', xp: 1500, team: 'blue')..sayHello();
+  var potato = player
+    ..name = 'lalala'
+    ..xp = 120000
+    ..team = 'blue'
+    ..sayHello();
 }
