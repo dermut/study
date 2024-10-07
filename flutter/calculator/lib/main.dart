@@ -13,10 +13,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black87),
         useMaterial3: true,
       ),
-      home: const Calculator(title: 'Flutter Demo Home Page'),
+      home: const Calculator(title: 'Calculator'),
     );
   }
 }
@@ -31,13 +31,7 @@ class Calculator extends StatefulWidget {
 }
 
 class _CalculatorState extends State<Calculator> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  int _calcResult = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -46,25 +40,34 @@ class _CalculatorState extends State<Calculator> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
+      body: Column(
+        children: [
+          Row(), // Calculator 결과
+          Row(
+            children: [
+              GridView.builder(
+                  itemCount: 20,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      mainAxisSpacing: 5,
+                      crossAxisSpacing: 5),
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      height: 20,
+                      alignment: Alignment.center,
+                      color: Colors.yellow,
+                      child: Text(
+                        '$index',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    );
+                  }),
+            ],
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
