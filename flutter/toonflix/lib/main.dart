@@ -7,12 +7,13 @@ void main() {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
         backgroundColor: Color(0xFF181818),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 40),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
                 height: 80,
@@ -40,6 +41,52 @@ class App extends StatelessWidget {
                       ),
                     ],
                   ),
+                ],
+              ),
+              SizedBox(
+                height: 120,
+              ),
+              Text(
+                'Total balance',
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.white70,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                '\$5 194 482',
+                style: TextStyle(
+                  fontSize: 48,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(45),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 20,
+                        horizontal: 50,
+                      ),
+                      child: Text(
+                        'Trnasfer',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               )
             ],
