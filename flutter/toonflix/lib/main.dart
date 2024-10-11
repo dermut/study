@@ -11,21 +11,21 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: Scaffold(
-        backgroundColor: const Color(0xFF181818),
+        backgroundColor: Color(0xFF181818),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(
+            padding: EdgeInsets.symmetric(
               horizontal: 20,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
+                SizedBox(
                   height: 80,
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Column(
@@ -50,20 +50,20 @@ class App extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 70,
                 ),
-                const Text(
+                Text(
                   'Total balance',
                   style: TextStyle(
                     fontSize: 22,
                     color: Colors.white70,
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 5,
                 ),
-                const Text(
+                Text(
                   '\$5 194 482',
                   style: TextStyle(
                     fontSize: 48,
@@ -71,10 +71,10 @@ class App extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 30,
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Button(
@@ -89,10 +89,10 @@ class App extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 100,
                 ),
-                const Row(
+                Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -113,36 +113,30 @@ class App extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 20,
                 ),
-                const CurrenyCard(
-                  name: 'Euro',
-                  amount: '6 428',
-                  code: 'EUR',
-                  icon: Icons.euro_rounded,
-                  isInverted: false,
-                ),
-                Transform.translate(
-                  offset: const Offset(0, -20),
-                  child: const CurrenyCard(
+                CurrenyCard(
+                    name: 'Euro',
+                    amount: '6 428',
+                    code: 'EUR',
+                    icon: Icons.euro_rounded,
+                    isInverted: false,
+                    order: 1),
+                CurrenyCard(
                     name: 'Bitcoin',
                     amount: '9 785',
                     code: 'BTC',
                     icon: Icons.currency_bitcoin_rounded,
                     isInverted: true,
-                  ),
-                ),
-                Transform.translate(
-                  offset: const Offset(0, -40),
-                  child: const CurrenyCard(
+                    order: 2),
+                CurrenyCard(
                     name: 'Dollar',
                     amount: '428',
                     code: 'USD',
                     icon: Icons.attach_money_outlined,
                     isInverted: false,
-                  ),
-                ),
+                    order: 3),
               ],
             ),
           ),
